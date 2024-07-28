@@ -2,6 +2,8 @@
 
 Это одностраничное приложение, выводящее из базы данных список автомобилей с возможностью пагинации и фильтрации по бренду и модели.
 
+![maximum-test](https://github.com/user-attachments/assets/e01dc750-f33e-4d06-ba8e-c3339b25f65f)
+
 ## Технологии
 
 - **Backend**: Node.js, Express, CORS, Dotenv  
