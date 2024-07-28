@@ -44,7 +44,16 @@ const Stock: React.FC = () => {
   return (
     <>
       {isLoading ? (
-        <Spin size="large" />
+        <div
+          style={{
+            display: "grid",
+            placeItems: "center",
+            minHeight: "100vh",
+            width: "100vw",
+          }}
+        >
+          <Spin size="large" />
+        </div>
       ) : (
         <Layout
           style={{ minHeight: "100vh", minWidth: "100vw", background: "none" }}

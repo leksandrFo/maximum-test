@@ -1,5 +1,0 @@
-{
-  "exec": "ts-node --esm backend/server.ts",
-  "watch": ["backend/**/*.ts"],
-  "ext": "ts,json"
-}
