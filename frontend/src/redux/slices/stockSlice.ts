@@ -41,9 +41,9 @@ export const stockSlice = createSlice({
         state.loading = false;
         state.error = null;
       })
-      .addCase(fetchStock.rejected, (state, { payload }) => {
+      .addCase(fetchStock.rejected, (state, action) => {
         state.loading = false;
-        state.error = payload;
+        state.error = action.payload;
       });
   },
 });

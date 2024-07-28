@@ -11,26 +11,23 @@ const Stock: React.FC = () => {
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
   const [selectedModels, setSelectedModels] = useState<string[]>([]);
 
-  const loadingBrands = useSelector((state) => state.brands.loading);
-  const loadingStock = useSelector((state) => state.stock.loading);
-  const errorBrands = useSelector((state) => state.brands.error);
-  const errorStock = useSelector((state) => state.stock.error);
+  const { loading: loadingBrands, error: errorBrands } = useSelector((state) => state.brands);
+  const { loading: loadingStock, error: errorStock } = useSelector((state) => state.stock);
 
   const isLoading = loadingBrands || loadingStock;
 
+  const handleNotification = (error, message: string) => {
+    if (error) {
+      notification.error({
+        message,
+        description: error.message,
+      });
+    }
+  };
+
   useEffect(() => {
-    if (errorBrands) {
-      notification.error({
-        message: "Ошибка загрузки брендов",
-        description: errorBrands,
-      });
-    }
-    if (errorStock) {
-      notification.error({
-        message: "Ошибка загрузки запасов",
-        description: errorStock,
-      });
-    }
+    handleNotification(errorBrands, "Ошибка загрузки брендов");
+    handleNotification(errorStock, "Ошибка загрузки запасов");
   }, [errorBrands, errorStock]);
 
   const handleBrandChange = (brand: string | null) => {

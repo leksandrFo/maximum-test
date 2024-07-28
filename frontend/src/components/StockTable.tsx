@@ -18,9 +18,9 @@ const StockTable: React.FC<IStockTableProps> = ({ selectedBrand, selectedModels 
     });
   }, [stock, selectedBrand, selectedModels]);
 
-  if (stock.length === 0) {
-    return <Alert message="Данные недоступны" type="warning" />;
-  }
+  // if (stock.length === 0) {
+  //   return <Alert message="Данные недоступны" type="warning" />;
+  // }
 
   const formattedData: IColumnsTable[] = filteredStock.map((car) => ({
     key: car._id,
@@ -69,7 +69,7 @@ const StockTable: React.FC<IStockTableProps> = ({ selectedBrand, selectedModels 
 
   return (
     <Table
-      dataSource={formattedData}
+      dataSource={formattedData.length > 0 ? formattedData : []}
       columns={columns}
       bordered
       rowKey="key"

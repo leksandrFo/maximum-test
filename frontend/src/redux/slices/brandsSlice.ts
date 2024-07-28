@@ -41,9 +41,9 @@ export const brandsSlice = createSlice({
         state.loading = false;
         state.error = null;
       })
-      .addCase(fetchBrands.rejected, (state, { payload }) => {
+      .addCase(fetchBrands.rejected, (state, action) => {
         state.loading = false;
-        state.error = payload;
+        state.error = action.payload;
       });
   },
 });

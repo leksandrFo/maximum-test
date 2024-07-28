@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Typography, Space, Flex } from "antd";
+import { Typography, Space, Flex, Alert } from "antd";
 import { selectors } from "../redux/slices/brandsSlice";
 import IBrands from "../types/IBrands";
 
@@ -11,7 +11,7 @@ interface BrandSelectorProps {
   }
 
 const BrandSelector: React.FC<BrandSelectorProps> = ({ onBrandChange }) => {
-const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
 
   const brands = useSelector(
     (state: { brands: { ids: string[]; entities: Record<string, IBrands> } }) =>
@@ -31,34 +31,38 @@ const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
   return (
     <Flex vertical justify="start" align="start">
       <Text>Марки автомобилей:</Text>
-      <Flex wrap gap="small">
-        {brands.map(({ _id, totalQuantity }) => (
-          <Space key={_id}>
-            <Link href="#!">
-              <span
-                onClick={() => handleBrand(_id)}
+      {brands.length === 0 ? (
+        <Alert message="Нет данных" type="warning" />
+      ) : (
+        <Flex wrap gap="small">
+          {brands.map(({ _id, totalQuantity }) => (
+            <Space key={_id}>
+              <Link href="#!">
+                <span
+                  onClick={() => handleBrand(_id)}
+                  style={{
+                    fontWeight: selectedBrand === _id ? "bold" : 200,
+                    cursor: "pointer",
+                    textAlign: "center",
+                  }}
+                >
+                  {_id}
+                </span>
+              </Link>
+              <Text
                 style={{
-                  fontWeight: selectedBrand === _id ? "bold" : 200,
-                  cursor: "pointer",
+                  fontSize: 10,
+                  fontWeight: 200,
+                  flex: 1,
                   textAlign: "center",
                 }}
               >
-                {_id}
-              </span>
-            </Link>
-            <Text
-              style={{
-                fontSize: 10,
-                fontWeight: 200,
-                flex: 1,
-                textAlign: "center",
-              }}
-            >
-              {totalQuantity}
-            </Text>
-          </Space>
-        ))}
-      </Flex>
+                {totalQuantity}
+              </Text>
+            </Space>
+          ))}
+        </Flex>
+      )}
     </Flex>
   );
 };
